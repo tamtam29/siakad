@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Ruang;
 use App\Models\Matakuliah;
-
+use Validator;
 class RuangController extends Controller
 {
     public function __construct(Ruang $ruang, Matakuliah $matakuliah)
@@ -48,17 +48,31 @@ class RuangController extends Controller
      */
     public function store(Request $request)
     {
-        $ruang = new Ruang();
-        $ruang->kode_ruang    = $request['kode_ruang'];
-        $ruang->matakuliah_id = $request['matakuliah_id'];
-        $ruang->nama          = $request['nama'];
-        $ruang->jadwal        = $request['jadwal'];
-        $ruang->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'kode_ruang' => 'required',
+            'matakuliah_id' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('ruang.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Ruangan has been created'
-        ]);
+        if (!$validator->fails()) {
+
+            $ruang = new Ruang();
+            $ruang->kode_ruang    = $request['kode_ruang'];
+            $ruang->matakuliah_id = $request['matakuliah_id'];
+            $ruang->nama          = $request['nama'];
+            $ruang->jadwal        = $request['jadwal'];
+            $ruang->save();
+
+            return redirect(route('ruang.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Ruangan has been created'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**
@@ -98,17 +112,31 @@ class RuangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ruang = $this->ruang->find($id);
-        $ruang->kode_ruang    = $request['kode_ruang'];
-        $ruang->matakuliah_id = $request['matakuliah_id'];
-        $ruang->nama          = $request['nama'];
-        $ruang->jadwal         = $request['jadwal'];
-        $ruang->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'kode_ruang' => 'required',
+            'matakuliah_id' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('ruang.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Ruangan has been updated'
-        ]);
+        if (!$validator->fails()) {
+
+            $ruang = $this->ruang->find($id);
+            $ruang->kode_ruang    = $request['kode_ruang'];
+            $ruang->matakuliah_id = $request['matakuliah_id'];
+            $ruang->nama          = $request['nama'];
+            $ruang->jadwal         = $request['jadwal'];
+            $ruang->save();
+
+            return redirect(route('ruang.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Ruangan has been updated'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**

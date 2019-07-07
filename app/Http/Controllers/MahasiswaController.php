@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use Validator;
 
 class MahasiswaController extends Controller
 {
@@ -42,20 +43,33 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $mahasiswa = new Mahasiswa();
-        $mahasiswa->nim         = $request['nim'];
-        $mahasiswa->nama        = $request['nama'];
-        $mahasiswa->alamat      = $request['alamat'];
-        $mahasiswa->jk          = $request['jk'];
-        $mahasiswa->pin         = $request['pin'];
-        $mahasiswa->password    = $request['password'];
-        $mahasiswa->foto        = 'default.jpg';
-        $mahasiswa->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'nim' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('mahasiswa.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Mahasiswa has been created'
-        ]);
+        if (!$validator->fails()) {
+
+            $mahasiswa = new Mahasiswa();
+            $mahasiswa->nim         = $request['nim'];
+            $mahasiswa->nama        = $request['nama'];
+            $mahasiswa->alamat      = $request['alamat'];
+            $mahasiswa->jk          = $request['jk'];
+            $mahasiswa->pin         = $request['pin'];
+            $mahasiswa->password    = $request['password'];
+            $mahasiswa->foto        = 'default.jpg';
+            $mahasiswa->save();
+
+            return redirect(route('mahasiswa.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Mahasiswa has been created'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**
@@ -90,19 +104,32 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $mahasiswa = $this->mahasiswa->find($id);
-        $mahasiswa->nim         = $request['nim'];
-        $mahasiswa->nama        = $request['nama'];
-        $mahasiswa->alamat      = $request['alamat'];
-        $mahasiswa->jk          = $request['jk'];
-        $mahasiswa->pin         = $request['pin'];
-        $mahasiswa->password    = $request['password'];
-        $mahasiswa->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'nim' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('mahasiswa.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Mahasiswa has been updated'
-        ]);
+        if (!$validator->fails()) {
+
+            $mahasiswa = $this->mahasiswa->find($id);
+            $mahasiswa->nim         = $request['nim'];
+            $mahasiswa->nama        = $request['nama'];
+            $mahasiswa->alamat      = $request['alamat'];
+            $mahasiswa->jk          = $request['jk'];
+            $mahasiswa->pin         = $request['pin'];
+            $mahasiswa->password    = $request['password'];
+            $mahasiswa->save();
+
+            return redirect(route('mahasiswa.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Mahasiswa has been updated'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Jadwal;
 use App\Models\Matakuliah;
 use App\Models\Dosen;
-
+use Validator;
 class JadwalController extends Controller
 {
     public function __construct(Jadwal $jadwal, Matakuliah $matakuliah, Dosen $dosen)
@@ -57,18 +57,32 @@ class JadwalController extends Controller
      */
     public function store(Request $request)
     {
-        $jadwal = new Jadwal();
-        $jadwal->kode_jadwal   = $request['kode_jadwal'];
-        $jadwal->matakuliah_id = $request['matakuliah_id'];
-        $jadwal->dosen_id      = $request['dosen_id'];
-        $jadwal->tanggal       = $request['tanggal'];
-        $jadwal->jam           = $request['jam'];
-        $jadwal->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'kode_jadwal' => 'required',
+            'matakuliah_id' => 'required',
+            'dosen_id' => 'required',
+        ], $messages);
 
-        return redirect(route('jadwal.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Jadwal has been created'
-        ]);
+        if (!$validator->fails()) {
+
+            $jadwal = new Jadwal();
+            $jadwal->kode_jadwal   = $request['kode_jadwal'];
+            $jadwal->matakuliah_id = $request['matakuliah_id'];
+            $jadwal->dosen_id      = $request['dosen_id'];
+            $jadwal->tanggal       = $request['tanggal'];
+            $jadwal->jam           = $request['jam'];
+            $jadwal->save();
+
+            return redirect(route('jadwal.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Jadwal has been created'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**
@@ -115,18 +129,32 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jadwal = $this->jadwal->find($id);
-        $jadwal->kode_jadwal   = $request['kode_jadwal'];
-        $jadwal->matakuliah_id = $request['matakuliah_id'];
-        $jadwal->dosen_id      = $request['dosen_id'];
-        $jadwal->tanggal       = $request['tanggal'];
-        $jadwal->jam           = $request['jam'];
-        $jadwal->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'kode_jadwal' => 'required',
+            'matakuliah_id' => 'required',
+            'dosen_id' => 'required',
+        ], $messages);
 
-        return redirect(route('jadwal.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Jadwal has been updated'
-        ]);
+        if (!$validator->fails()) {
+
+            $jadwal = $this->jadwal->find($id);
+            $jadwal->kode_jadwal   = $request['kode_jadwal'];
+            $jadwal->matakuliah_id = $request['matakuliah_id'];
+            $jadwal->dosen_id      = $request['dosen_id'];
+            $jadwal->tanggal       = $request['tanggal'];
+            $jadwal->jam           = $request['jam'];
+            $jadwal->save();
+
+            return redirect(route('jadwal.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Jadwal has been updated'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**

@@ -115,31 +115,31 @@ class SiakadSeeder extends Seeder
                 'kode_matakuliah' => 'MK0001',
                 'nama' => 'Kalkulus',
                 'sks' => 4,
-                'semester' => 1
+                'semester' => 'Ganjil'
             ],
             [
                 'kode_matakuliah' => 'MK0002',
                 'nama' => 'Fisika',
                 'sks' => 2,
-                'semester' => 2
+                'semester' => 'Genap'
             ],
             [
                 'kode_matakuliah' => 'MK0003',
                 'nama' => 'Kimia',
                 'sks' => 4,
-                'semester' => 3
+                'semester' => 'Genap'
             ],
             [
                 'kode_matakuliah' => 'MK0004',
                 'nama' => 'Sejarah',
                 'sks' => 3,
-                'semester' => 2
+                'semester' => 'Ganjil'
             ],
             [
                 'kode_matakuliah' => 'MK0005',
                 'nama' => 'PPKN',
                 'sks' => 4,
-                'semester' => 4
+                'semester' => 'Ganjil'
             ]
         ];
 
@@ -185,35 +185,35 @@ class SiakadSeeder extends Seeder
                 'matakuliah_id' => 1,
                 'dosen_id' => 1,
                 'tanggal' => '2021/07/14',
-                'jam' => '10:00'
+                'jam' => '10:00 AM'
             ],
             [
                 'kode_jadwal' => 'KJ0002',
                 'matakuliah_id' => 2,
                 'dosen_id' => 2,
                 'tanggal' => '2021/07/14',
-                'jam' => '10:00'
+                'jam' => '10:00 AM'
             ],
             [
                 'kode_jadwal' => 'KJ0003',
                 'matakuliah_id' => 3,
                 'dosen_id' => 3,
                 'tanggal' => '2021/07/14',
-                'jam' => '10:00'
+                'jam' => '10:00 AM'
             ],
             [
                 'kode_jadwal' => 'KJ0004',
                 'matakuliah_id' => 4,
                 'dosen_id' => 4,
                 'tanggal' => '2021/07/14',
-                'jam' => '10:00'
+                'jam' => '10:00 AM'
             ],
             [
                 'kode_jadwal' => 'KJ0005',
                 'matakuliah_id' => 5,
                 'dosen_id' => 5,
                 'tanggal' => '2021/07/14',
-                'jam' => '10:00'
+                'jam' => '10:00 AM'
             ],
         ];
 

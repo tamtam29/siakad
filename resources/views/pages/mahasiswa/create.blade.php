@@ -1,27 +1,28 @@
 @extends('layouts.web')
 
 @section('content')
-<div class="container-fluid">
-    <div class="block-header">
-        <h2>
-            MAHASISWA
-        </h2>
-    </div>
-    <!-- Horizontal Layout -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        Tambah Mahasiswa
-                    </h2>
-                </div>
-                {!! Form::open(['route' => 'mahasiswa.store', 'class' => 'form-horizontal']) !!}
-                    @include('pages.mahasiswa._form')
-                {{ Form::close() }}
-            </div>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-6">
+          @include('layouts.web-parts.notif')
+
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Tambah Mahasiswa</h3>
+          </div>
+
+            {!! Form::open(['route' => 'mahasiswa.store']) !!}
+                @include('pages.mahasiswa._form')
+            {{ Form::close() }}
+
         </div>
+        <!-- /.box -->
+
+      </div>
     </div>
-    <!-- #END# Horizontal Layout -->
-</div>
+</section>
+
 @stop

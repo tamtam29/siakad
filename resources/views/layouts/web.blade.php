@@ -1,101 +1,70 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>SIAKAD</title>
-    <!-- Favicon-->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-
-    <!-- Bootstrap Core Css -->
-    <link href="{{asset('AdminBSBMaterialDesign/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
-
-    <!-- Waves Effect Css -->
-    <link href="{{asset('AdminBSBMaterialDesign/plugins/node-waves/waves.css')}}" rel="stylesheet" />
-
-    <!-- Animation Css -->
-    <link href="{{asset('AdminBSBMaterialDesign/plugins/animate-css/animate.css')}}" rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Data Tables</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css')}}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css')}}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css')}}">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/skins/_all-skins.min.css')}}">
 
     @yield('css')
 
-    <!-- Custom Css -->
-    <link href="{{asset('AdminBSBMaterialDesign/css/style.css')}}" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
-    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="{{asset('AdminBSBMaterialDesign/css/themes/all-themes.css')}}" rel="stylesheet" />
-
+  <!-- Google Font -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
 
-<body class="theme-red">
-    {{-- <!-- Page Loader -->
-    <div class="page-loader-wrapper">
-        <div class="loader">
-            <div class="preloader">
-                <div class="spinner-layer pl-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-            <p>Please wait...</p>
-        </div>
-    </div> --}}
-    <!-- #END# Page Loader -->
-    <!-- Overlay For Sidebars -->
-    <div class="overlay"></div>
-    <!-- #END# Overlay For Sidebars -->
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <div class="search-icon">
-            <i class="material-icons">search</i>
-        </div>
-        <input type="text" placeholder="START TYPING...">
-        <div class="close-search">
-            <i class="material-icons">close</i>
-        </div>
+  @include('layouts.web-parts.header')
+  @include('layouts.web-parts.sidebar')
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    @yield('content')
+  </div>
+
+  @include('layouts.web-parts.modal-delete')
+
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.12
     </div>
-    <!-- #END# Search Bar -->
-    
-    @include('layouts.web-parts.header')
-    @include('layouts.web-parts.sidebar')
+    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
 
-    <section class="content">
-        @include('layouts.web-parts.notif')
-        @yield('content')
-    </section>
-
-    @include('layouts.web-parts.modal-delete')
-
-    <!-- Jquery Core Js -->
-    <script src="{{asset('AdminBSBMaterialDesign/plugins/jquery/jquery.min.js')}}"></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="{{asset('AdminBSBMaterialDesign/plugins/bootstrap/js/bootstrap.js')}}"></script>
-
-    <!-- Select Plugin Js -->
-    <script src="{{asset('AdminBSBMaterialDesign/plugins/bootstrap-select/js/bootstrap-select.js')}}"></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="{{asset('AdminBSBMaterialDesign/plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="{{asset('AdminBSBMaterialDesign/plugins/node-waves/waves.js')}}"></script>
-
-    <!-- Custom Js -->
-    <script src="{{asset('AdminBSBMaterialDesign/js/admin.js')}}"></script>
-
-    @yield('js')
-
+<!-- jQuery 3 -->
+<script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- SlimScroll -->
+<script src="{{ asset('AdminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset('AdminLTE/dist/js/adminlte.min.js')}}"></script>
+@yield('js')
 </body>
-
 </html>
+

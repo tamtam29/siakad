@@ -1,46 +1,41 @@
 @extends('layouts.web')
 
-@section('css')    
-    <!-- Bootstrap Material Datetime Picker Css -->
-    <link href="{{ asset('AdminBSBMaterialDesign/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet" />
-
-    <!-- Custom Css -->
-    <link href="{{asset('AdminBSBMaterialDesign/plugins/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet" />
+@section('css')
+  <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css')}}">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css')}}">
 @stop
 
 @section('content')
-<div class="container-fluid">
-    <div class="block-header">
-        <h2>
-            JADWAL
-        </h2>
-    </div>
-    <!-- Horizontal Layout -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        Tambah Jadwal
-                    </h2>
-                </div>
-                {!! Form::open(['route' => 'jadwal.store', 'class' => 'form-horizontal']) !!}
-                    @include('pages.jadwal._form')
-                {{ Form::close() }}
-            </div>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-6">
+          @include('layouts.web-parts.notif')
+
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Tambah Jadwal</h3>
+          </div>
+
+            {!! Form::open(['route' => 'jadwal.store']) !!}
+                @include('pages.jadwal._form')
+            {{ Form::close() }}
+
         </div>
+        <!-- /.box -->
+
+      </div>
     </div>
-    <!-- #END# Horizontal Layout -->
-</div>
+</section>
 @stop
 
 @section('js')
-    <!-- Moment Plugin Js -->
-    <script src="{{ asset('AdminBSBMaterialDesign/plugins/momentjs/moment.js') }}"></script>
-
-    <!-- Bootstrap Material Datetime Picker Plugin Js -->
-    <script src="{{ asset('AdminBSBMaterialDesign/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
-    
-    <!-- Custom Js -->
-    <script src="{{ asset('js/jadwal.js') }}"></script>
+  <!-- bootstrap datepicker -->
+  <script src="{{ asset('AdminLTE/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}"></script>
+  <!-- bootstrap time picker -->
+  <script src="{{ asset('AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js')}}"></script>
+  <script src="{{ asset('js/jadwal.js')}}"></script>
 @stop

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dosen;
-
+use Validator;
 class DosenController extends Controller
 {
     public function __construct(Dosen $dosen)
@@ -42,20 +42,33 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        $dosen = new Dosen();
-        $dosen->nik         = $request['nik'];
-        $dosen->nama        = $request['nama'];
-        $dosen->alamat      = $request['alamat'];
-        $dosen->jk          = $request['jk'];
-        $dosen->pin         = $request['pin'];
-        $dosen->password    = $request['password'];
-        $dosen->foto        = 'default.jpg';
-        $dosen->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'nik' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('dosen.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Dosen has been created'
-        ]);
+        if (!$validator->fails()) {
+
+            $dosen = new Dosen();
+            $dosen->nik         = $request['nik'];
+            $dosen->nama        = $request['nama'];
+            $dosen->alamat      = $request['alamat'];
+            $dosen->jk          = $request['jk'];
+            $dosen->pin         = $request['pin'];
+            $dosen->password    = $request['password'];
+            $dosen->foto        = 'default.jpg';
+            $dosen->save();
+
+            return redirect(route('dosen.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Dosen has been created'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**
@@ -90,19 +103,32 @@ class DosenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dosen = $this->dosen->find($id);
-        $dosen->nik         = $request['nik'];
-        $dosen->nama        = $request['nama'];
-        $dosen->alamat      = $request['alamat'];
-        $dosen->jk          = $request['jk'];
-        $dosen->pin         = $request['pin'];
-        $dosen->password    = $request['password'];
-        $dosen->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'nik' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('dosen.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Dosen has been updated'
-        ]);
+        if (!$validator->fails()) {
+
+            $dosen = $this->dosen->find($id);
+            $dosen->nik         = $request['nik'];
+            $dosen->nama        = $request['nama'];
+            $dosen->alamat      = $request['alamat'];
+            $dosen->jk          = $request['jk'];
+            $dosen->pin         = $request['pin'];
+            $dosen->password    = $request['password'];
+            $dosen->save();
+
+            return redirect(route('dosen.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Dosen has been updated'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**

@@ -51,19 +51,15 @@ $(function () {
     } 
 
     if ($('.datepicker').length > 0) {
-        $('.datepicker').bootstrapMaterialDatePicker({
-            format: 'YYYY/MM/DD ',
-            clearButton: true,
-            weekStart: 1,
-            time: false
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
     }
 
     if ($('.timepicker').length > 0) {
-        $('.timepicker').bootstrapMaterialDatePicker({
-            format: 'HH:mm',
-            clearButton: true,
-            date: false
+        $('.timepicker').timepicker({
+            showInputs: false
         });
     }
 });

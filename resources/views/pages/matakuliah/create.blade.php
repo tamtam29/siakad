@@ -1,32 +1,28 @@
 @extends('layouts.web')
 
-@section('css')    
-    <!-- Custom Css -->
-    <link href="{{asset('AdminBSBMaterialDesign/plugins/bootstrap-select/css/bootstrap-select.css')}}" rel="stylesheet" />
-@stop
-
 @section('content')
-<div class="container-fluid">
-    <div class="block-header">
-        <h2>
-            MATAKULIAH
-        </h2>
-    </div>
-    <!-- Horizontal Layout -->
-    <div class="row clearfix">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="header">
-                    <h2>
-                        Tambah Matakuliah
-                    </h2>
-                </div>
-                {!! Form::open(['route' => 'matakuliah.store', 'class' => 'form-horizontal']) !!}
-                    @include('pages.matakuliah._form')
-                {{ Form::close() }}
-            </div>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-6">
+          @include('layouts.web-parts.notif')
+
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Tambah Matakuliah</h3>
+          </div>
+
+            {!! Form::open(['route' => 'matakuliah.store']) !!}
+                @include('pages.matakuliah._form')
+            {{ Form::close() }}
+
         </div>
+        <!-- /.box -->
+
+      </div>
     </div>
-    <!-- #END# Horizontal Layout -->
-</div>
+</section>
+
 @stop

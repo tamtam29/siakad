@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Matakuliah;
-
+use Validator;
 class MatakuliahController extends Controller
 {
     public function __construct(Matakuliah $matakuliah)
@@ -41,17 +41,30 @@ class MatakuliahController extends Controller
      */
     public function store(Request $request)
     {
-        $matakuliah = new Matakuliah();
-        $matakuliah->kode_matakuliah    = $request['kode_matakuliah'];
-        $matakuliah->nama               = $request['nama'];
-        $matakuliah->sks                = $request['sks'];
-        $matakuliah->semester           = $request['semester'];
-        $matakuliah->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'kode_matakuliah' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('matakuliah.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Matakuliah has been created'
-        ]);
+        if (!$validator->fails()) {
+
+            $matakuliah = new Matakuliah();
+            $matakuliah->kode_matakuliah    = $request['kode_matakuliah'];
+            $matakuliah->nama               = $request['nama'];
+            $matakuliah->sks                = $request['sks'];
+            $matakuliah->semester           = $request['semester'];
+            $matakuliah->save();
+
+            return redirect(route('matakuliah.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Matakuliah has been created'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**
@@ -86,17 +99,30 @@ class MatakuliahController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $matakuliah = $this->matakuliah->find($id);
-        $matakuliah->kode_matakuliah    = $request['kode_matakuliah'];
-        $matakuliah->nama               = $request['nama'];
-        $matakuliah->sks                = $request['sks'];
-        $matakuliah->semester           = $request['semester'];
-        $matakuliah->save();
+        $messages  = $this->custom_message_validation();
+        $validator = Validator::make($request->all(), [
+            'kode_matakuliah' => 'required',
+            'nama' => 'required',
+        ], $messages);
 
-        return redirect(route('matakuliah.index'))->with([
-            'status' => 'success',
-            'msg'    => 'Matakuliah has been updated'
-        ]);
+        if (!$validator->fails()) {
+
+            $matakuliah = $this->matakuliah->find($id);
+            $matakuliah->kode_matakuliah    = $request['kode_matakuliah'];
+            $matakuliah->nama               = $request['nama'];
+            $matakuliah->sks                = $request['sks'];
+            $matakuliah->semester           = $request['semester'];
+            $matakuliah->save();
+
+            return redirect(route('matakuliah.index'))->with([
+                'status' => 'success',
+                'msg'    => 'Matakuliah has been updated'
+            ]);
+        } else {
+            return redirect()->back()
+                ->withErrors($validator->errors())
+                ->withInput();
+        }
     }
 
     /**

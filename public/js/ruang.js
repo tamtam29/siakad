@@ -27,8 +27,8 @@ $(function () {
         "columns": [
             { data: 'id', name: 'id', className: 'text-center' },
             { data: 'kode_ruang', name: 'kode_ruang', className: 'text-center' },
-            { data: 'kode_matakuliah', name: 'kode_matakuliah' },
             { data: 'nama', name: 'nama' },
+            { data: 'kode_matakuliah', name: 'kode_matakuliah' },
             { data: 'jadwal', name: 'jadwal' },
             { data: 'action', name: 'action', className: 'text-center' }
         ],

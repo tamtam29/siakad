@@ -15,7 +15,7 @@ class CreateDosenTable extends Migration
     {
         Schema::create('dosen', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nik')->unique();
+            $table->string('nik')->nullable();
             $table->string('nama')->nullable();
             $table->string('alamat')->nullable();
             $table->boolean('jk')->default(1);
